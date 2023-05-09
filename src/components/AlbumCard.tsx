@@ -7,6 +7,24 @@ const AlbumCard = ({ currentAlbum, currentAlbumId }: any) => {
   const [showTracklist, setShowTracklist] = useState<boolean>(false);
   const router = useRouter();
 
+  const verifyAlbum = async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/create-album`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: currentAlbum?.name,
+          artist: currentAlbum?.artist,
+          mbid: currentAlbumId,
+        }),
+      }
+    );
+    router.push(`/album/${currentAlbumId}`);
+  };
+
   const returnTracklist = () => {
     if (currentAlbum?.tracks) {
       return (
@@ -32,65 +50,62 @@ const AlbumCard = ({ currentAlbum, currentAlbumId }: any) => {
   };
 
   return (
-    <div className="relative flex flex-1 items-center justify-center">
-      <div className="z-[5] my-10 w-full rounded-lg bg-slate-700 p-4 text-slate-100 drop-shadow-lg">
-        <div className="flex justify-between">
-          <Link className="w-10" href={`/album/${currentAlbumId}`}>
-            <h1 className="text-3xl">{currentAlbum?.name}</h1>
-          </Link>
-          <h2 className="text-2xl">{currentAlbum?.artist}</h2>
-        </div>
-        <div className="mt-10 flex gap-6 text-lg ">
-          {currentAlbum && (
-            <Image
-              src={`${currentAlbum?.image[2]["#text"]}`}
-              alt="album picture"
-              width={200}
-              height={200}
-              className="w-[200px] h-[200px] pointer"
-              onClick={() => {
-                router.push(`/album/${currentAlbumId}`);
-              }}
-            />
-          )}
-          <div className="">
-            <p
-              className="mb-2"
-              dangerouslySetInnerHTML={
-                currentAlbum?.wiki
-                  ? { __html: `${currentAlbum?.wiki.summary}` }
-                  : { __html: "" }
-              }
-            ></p>
+    <div className="z-[5] my-10 w-full rounded-lg bg-slate-700 p-4 text-slate-100 drop-shadow-lg duration-150 ease-in-out hover:shadow-lg hover:shadow-teal-900">
+      <div className="flex justify-between" onClick={() => verifyAlbum()}>
+        <h1 className="cursor-pointer text-3xl">{currentAlbum?.name}</h1>
+        <h2 className="text-2xl">{currentAlbum?.artist}</h2>
+      </div>
+
+      <div className="mt-10 flex gap-6 text-lg ">
+        {currentAlbum && (
+          <Image
+            src={`${currentAlbum?.image[2]["#text"]}`}
+            alt="album picture"
+            width={200}
+            height={200}
+            className="h-[200px] w-[200px] cursor-pointer"
+            onClick={() => {
+              () => verifyAlbum();
+            }}
+          />
+        )}
+        <div className="">
+          <p
+            className="mb-2"
+            dangerouslySetInnerHTML={
+              currentAlbum?.wiki
+                ? { __html: `${currentAlbum?.wiki.summary}` }
+                : { __html: "" }
+            }
+          ></p>
+          <div
+            onClick={() => setShowTracklist((prev) => !prev)}
+            className="relative box-border w-full cursor-pointer  border-gray-600 bg-black p-2 "
+          >
+            {returnTracklist()}
             <div
-              onClick={() => setShowTracklist((prev) => !prev)}
-              className="relative box-border w-full cursor-pointer  border-gray-600 bg-black p-2 "
+              className={`${
+                showTracklist ? "block" : "hidden"
+              } absolute left-0 top-0 h-44 w-[100%] overflow-scroll `}
             >
-              {returnTracklist()}
-              <div
-                className={`${
-                  showTracklist ? "block" : "hidden"
-                } absolute left-0 top-0 h-44 w-[100%] overflow-scroll `}
-              >
-                {currentAlbum?.tracks?.track.map(
-                  (curTrack: any, index: number) => {
-                    return (
-                      <div
-                        key={index}
-                        className="flex w-full justify-between  border-gray-600 bg-black p-2 "
-                      >
-                        <div className="flex gap-2">
-                          <p>{index + 1}.</p>
-                          <p>{curTrack.name}</p>
-                        </div>
-                        <p className="">
-                          {convertSecondsToMinutes(curTrack.duration)}
-                        </p>
+              {currentAlbum?.tracks?.track.map(
+                (curTrack: any, index: number) => {
+                  return (
+                    <div
+                      key={index}
+                      className="flex w-full justify-between  border-gray-600 bg-black p-2 "
+                    >
+                      <div className="flex gap-2">
+                        <p>{index + 1}.</p>
+                        <p>{curTrack.name}</p>
                       </div>
-                    );
-                  }
-                )}
-              </div>
+                      <p className="">
+                        {convertSecondsToMinutes(curTrack.duration)}
+                      </p>
+                    </div>
+                  );
+                }
+              )}
             </div>
           </div>
         </div>

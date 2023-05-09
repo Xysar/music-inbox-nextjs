@@ -5,12 +5,11 @@ import Star from "public/star.svg";
 import { retrieveAlbumById, retrieveAlbumByName } from "@/utils/lastfm";
 import StarRating from "@/components/StarRating";
 import Navbar from "@/components/Navbar";
-const UserPage = ({ userId, userInfo }: any) => {
+const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
+  const [userReviews, setUserReviews] = useState(userInfo.reviews);
+  const [albumsData, setAlbumsData]: any[] = useState(albumDataArray);
   const userObj = useUser();
   const { user } = userObj;
-
-  const [userReviews, setUserReviews] = useState(userInfo.reviews);
-  const [albumsData, setAlbumsData]: any[] = useState([]);
 
   useEffect(() => {
     verifyUser();
@@ -20,27 +19,7 @@ const UserPage = ({ userId, userInfo }: any) => {
     getReviewAssets();
   }, []);
 
-  const getReviewAssets = async () => {
-    const albumResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get-user-album-mbids/${userId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const albumIds = await albumResponse.json();
-
-    const promises = await Promise.all(
-      albumIds.map((albumId: string) => retrieveAlbumById(albumId))
-    );
-
-    const albumDataArray = await Promise.all(promises);
-
-    console.log(albumDataArray);
-    setAlbumsData(albumDataArray);
-  };
+  const getReviewAssets = async () => {};
 
   const sendReview = async () => {
     const response = await fetch(
@@ -86,14 +65,14 @@ const UserPage = ({ userId, userInfo }: any) => {
   };
 
   return (
-    <section className=" relative bg-slate-800">
+    <section className=" relative min-h-screen bg-slate-800">
       <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
       <div className=" m-auto max-w-[1300px]">
         <Navbar />
-        <div className="  p-10 w-[300px] m-auto  justify-between">
-          <div className="items-center flex flex-col gap-5 ">
+        <div className="  m-auto w-[300px] justify-between  p-10">
+          <div className="flex flex-col items-center gap-5 ">
             {user && (
               <Image
                 src={`${user?.profileImageUrl}`}
@@ -103,43 +82,46 @@ const UserPage = ({ userId, userInfo }: any) => {
                 className="h-[200px] w-[200px] rounded-full"
               />
             )}
-            <p className="text-white text-3xl "> {user?.fullName}</p>
+            <p className="text-3xl text-white "> {user?.fullName}</p>
           </div>
         </div>
-        {userReviews.map((review: any, index: number) => (
-          <div
-            key={review.id}
-            className="flex  justify-between  text-black bg-slate-500"
-          >
-            {albumsData[index] && (
-              <div className="flex  w-[50%]">
-                <Image
-                  src={albumsData[index]?.image[2]["#text"]}
-                  width={200}
-                  height={200}
-                  alt="Album Cover"
-                />
-                <div className="p-5 flex flex-col justify-center">
-                  <h1 className=" text-4xl font-bold">
-                    {albumsData[index].artist}
-                  </h1>
-                  <h2 className="text-3xl ">{albumsData[index].name}</h2>
+        <div className="pb-4">
+          {userReviews.map((review: any, index: number) => (
+            <div
+              key={review.id}
+              className="flex justify-between  border-b-2 border-slate-700  bg-slate-500 text-black"
+            >
+              {albumsData[index] && (
+                <div className="flex  w-[50%]">
+                  <Image
+                    src={albumsData[index]?.image[2]["#text"]}
+                    width={200}
+                    className="h-[200px] w-[200px]"
+                    height={200}
+                    alt="Album Cover"
+                  />
+                  <div className="flex flex-col justify-center p-5">
+                    <h1 className="text-4xl font-bold">
+                      {albumsData[index].name}
+                    </h1>
+                    <h2 className=" text-3xl ">{albumsData[index].artist}</h2>
+                  </div>
+                </div>
+              )}
+              <div className="w-[50%] bg-slate-900 p-5">
+                <p className="m-auto h-20 overflow-y-scroll text-white ">
+                  {review.content}
+                </p>
+                <div className="">
+                  <StarRating
+                    rating={review.rating}
+                    handleClick={handleRatingClick}
+                  />
                 </div>
               </div>
-            )}
-            <div className="bg-slate-900 p-5 w-[50%]">
-              <p className="overflow-y-scroll h-20 m-auto text-white ">
-                {review.content}
-              </p>
-              <div className="">
-                <StarRating
-                  rating={review.rating}
-                  handleClick={handleRatingClick}
-                />
-              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -159,7 +141,24 @@ export async function getServerSideProps(context: any) {
   );
   const userInfo = await response.json();
 
-  return { props: { userId, userInfo } };
+  const albumResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get-user-album-mbids/${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const albumIds = await albumResponse.json();
+
+  const promises = await Promise.all(
+    albumIds.map((albumId: string) => retrieveAlbumById(albumId))
+  );
+
+  const albumDataArray = await Promise.all(promises);
+
+  return { props: { userId, userInfo, albumDataArray } };
 }
 
 export default UserPage;

@@ -4,6 +4,9 @@ export const retrieveAlbumByName = async (input: string) => {
     `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${input}&api_key=${process.env.NEXT_PUBLIC_LASTFM_KEY}&format=json`
   );
   const jsonData = await response.json();
+  if (!jsonData.results) {
+    return null;
+  }
   const album = jsonData.results.albummatches.album[0];
   return album;
 };

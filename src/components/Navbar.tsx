@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="flex w-full items-center justify-between px-10 py-6 text-slate-200">
       <Link href={"/"}>
-        <div className="flex items-center gap-5 cursor-pointer">
+        <div className="flex cursor-pointer items-center gap-5">
           <Image
             src="/record.svg"
             width={250}
@@ -25,27 +25,35 @@ const Navbar = () => {
           <h1 className=" text-5xl">Music Inbox</h1>
         </div>
       </Link>
-      <ul className="hidden items-center gap-10   text-lg sm:flex ">
+      <ul className="hidden items-center gap-10 text-lg sm:flex ">
         <SignedIn>
           <li>
             <Link
               href={`/user/${userId}`}
-              className="rounded-xl px-8 py-2 ease-in duration-100 hover:bg-slate-900"
+              className="rounded-xl px-8 py-2 duration-100 ease-in hover:bg-slate-900"
             >
-              Library
+              Profile
             </Link>
           </li>
         </SignedIn>
         <li>
           <Link
             href={"/"}
-            className="rounded-xl px-8 py-2 ease-in duration-100 hover:bg-slate-900"
+            className="rounded-xl px-8 py-2 duration-100 ease-in hover:bg-slate-900"
           >
             Search
           </Link>
         </li>
-        <li>
-          <SignedIn>
+
+        <SignedIn>
+          <li>
+            <Link href={"/CreateReview"} className=" ">
+              <p className="inline-block h-full w-full rounded-lg bg-primary px-5 py-4 text-center duration-100 ease-in ">
+                +
+              </p>
+            </Link>
+          </li>
+          <li>
             <UserButton
               appearance={{
                 elements: {
@@ -53,16 +61,18 @@ const Navbar = () => {
                 },
               }}
             />
-          </SignedIn>
-          <SignedOut>
+          </li>
+        </SignedIn>
+        <SignedOut>
+          <li>
             <Link
               href="/Login"
-              className="whitespace-nowrap rounded-xl bg-primary ease-in hover:ring-2 ring-offset-4  ring-offset-slate-900 ring-orange-500 duration-100 hover:bg-slate-900 px-8 py-2"
+              className="whitespace-nowrap rounded-xl bg-primary px-8 py-2 ring-orange-500  ring-offset-4 ring-offset-slate-900 duration-100 ease-in hover:bg-slate-900 hover:ring-2"
             >
               Log In
             </Link>
-          </SignedOut>
-        </li>
+          </li>
+        </SignedOut>
       </ul>
       <div className="relative sm:hidden">
         <button
@@ -90,7 +100,7 @@ const Navbar = () => {
                 Search
               </button>
             </li>
-            <li className="px-8 py-2 bg-orange-400 hover:bg-slate-900">
+            <li className="bg-orange-400 px-8 py-2 hover:bg-slate-900">
               <Link href="/login">Log In</Link>
             </li>
           </ul>
