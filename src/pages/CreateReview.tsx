@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
 import StarRating from "@/components/StarRating";
+import { useRouter } from "next/router";
 const CreateReview: React.FC = () => {
   const [currentAlbum, setCurrentAlbum] = useState<any>(null);
   const [currentAlbumId, setCurrentAlbumId] = useState<String>("");
@@ -12,6 +13,8 @@ const CreateReview: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState(false);
+
+  const router = useRouter();
 
   const userObj = useUser();
   const { user } = userObj;
@@ -61,12 +64,12 @@ const CreateReview: React.FC = () => {
         }),
       }
     );
-    const results = await response.json();
   };
 
-  const handleSubmit = () => {
-    verifyAlbum();
-    createReview();
+  const handleSubmit = async () => {
+    await verifyAlbum();
+    await createReview();
+    router.push(`/user/${user?.id}`);
   };
 
   return (
@@ -126,7 +129,7 @@ const CreateReview: React.FC = () => {
               <StarRating rating={rating} handleClick={handleRatingClick} />
             </div>
             <button
-              className="block m-auto rounded-lg bg-primary p-3 text-lg duration-300 ease-in-out  hover:bg-slate-900"
+              className="m-auto block rounded-lg bg-primary p-3 text-lg duration-300 ease-in-out  hover:bg-slate-900"
               type="button"
               onClick={() => handleSubmit()}
             >

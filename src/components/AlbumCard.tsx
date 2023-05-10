@@ -50,7 +50,7 @@ const AlbumCard = ({ currentAlbum, currentAlbumId }: any) => {
   };
 
   return (
-    <div className="z-[5] my-10 w-full rounded-lg bg-slate-700 p-4 text-slate-100 drop-shadow-lg duration-150 ease-in-out hover:shadow-lg hover:shadow-teal-900">
+    <div className="z-[5] my-10 w-full rounded-lg bg-slate-700 p-4 text-slate-100 drop-shadow-lg duration-150 ease-in-out  ">
       <div className="flex justify-between" onClick={() => verifyAlbum()}>
         <h1 className="cursor-pointer text-3xl">{currentAlbum?.name}</h1>
         <h2 className="text-2xl">{currentAlbum?.artist}</h2>

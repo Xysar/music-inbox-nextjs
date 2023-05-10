@@ -13,30 +13,38 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
 
   useEffect(() => {
     verifyUser();
+    console.log(userReviews);
   }, [userObj]);
 
-  useEffect(() => {
-    getReviewAssets();
-  }, []);
-
-  const getReviewAssets = async () => {};
-
-  const sendReview = async () => {
+  const getReviewAssets = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/770b9b80-10e1-4297-b1fd-46ad0dbb0305/${userId}/create-review`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get-user/${userId}`,
       {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          content: "Good Album",
-          rating: 5,
-        }),
       }
     );
-    const results = await response.json();
-    console.log(results);
+    const userInfo = await response.json();
+    setUserReviews(userInfo.reviews);
+    const albumResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get-user-album-mbids/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const albumIds = await albumResponse.json();
+
+    const promises = await Promise.all(
+      albumIds.map((albumId: string) => retrieveAlbumById(albumId))
+    );
+
+    const albumData = await Promise.all(promises);
+    setAlbumsData(albumData);
   };
 
   const verifyUser = async () => {
@@ -60,9 +68,26 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
     const result = await response.json();
   };
 
-  const handleRatingClick = (index: number) => {
-    console.log(index);
+  const handleDelete = async (index: number) => {
+    const idTodelete = userReviews[index].id;
+    console.log(idTodelete);
+    await deleteReview(idTodelete);
+    await getReviewAssets();
   };
+
+  const deleteReview = async (id: number) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/delete-review/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  };
+
+  const handleRatingClick = (index: number) => {};
 
   return (
     <section className=" relative min-h-screen bg-slate-800">
@@ -108,16 +133,29 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
                   </div>
                 </div>
               )}
-              <div className="w-[50%] bg-slate-900 p-5">
-                <p className="m-auto h-20 overflow-y-scroll text-white ">
-                  {review.content}
-                </p>
-                <div className="">
-                  <StarRating
-                    rating={review.rating}
-                    handleClick={handleRatingClick}
-                  />
+              <div className="flex w-[50%] justify-between bg-slate-900 p-5">
+                <div className=" ">
+                  <p className="m-auto h-20 overflow-y-scroll text-white ">
+                    {review.content}
+                  </p>
+                  <div className="">
+                    <StarRating
+                      rating={review.rating}
+                      handleClick={handleRatingClick}
+                    />
+                  </div>
                 </div>
+                <button
+                  onClick={() => handleDelete(index)}
+                  className=" flex h-10 w-10 items-center justify-center rounded-full text-white hover:bg-slate-800"
+                >
+                  <Image
+                    src={"/trash-solid.svg"}
+                    width={20}
+                    height={20}
+                    alt="trash can image"
+                  ></Image>
+                </button>
               </div>
             </div>
           ))}

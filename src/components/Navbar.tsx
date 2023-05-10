@@ -48,7 +48,7 @@ const Navbar = () => {
         <SignedIn>
           <li>
             <Link href={"/CreateReview"} className=" ">
-              <p className="inline-block h-full w-full rounded-lg bg-primary px-5 py-4 text-center duration-100 ease-in ">
+              <p className="inline-block  h-full w-full rounded-lg bg-primary px-5 py-4 text-center duration-150 ease-in-out hover:scale-110  hover:bg-primary">
                 +
               </p>
             </Link>
