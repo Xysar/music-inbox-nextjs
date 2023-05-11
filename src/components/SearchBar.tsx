@@ -34,13 +34,13 @@ const SearchBar = ({ setCurrentAlbum, setCurrentAlbumId, setLoading }: any) => {
       <div className="m-auto max-w-[1300px]">
         <h3 className="font-poppins text-3xl text-white ">Enter Album:</h3>
         <form onSubmit={(e) => handleSubmit(e)} className="flex-1 ">
-          <div className="relative z-[1] flex items-center rounded-xl border-slate-900 bg-slate-400 p-2">
+          <div className="z-[1] flex    ">
             <input
               type="text"
               ref={albumInput}
-              className=" bg-search h-[80%] w-[100%] rounded-lg bg-slate-400 bg-contain bg-no-repeat  p-2 pl-14 text-xl focus:outline-none focus:ring focus:ring-primary"
+              className=" bg-search box-border w-full rounded-l-lg  border bg-slate-400 bg-contain bg-no-repeat p-4  pl-14 text-xl focus:border focus:border-primary focus:outline-none "
             />
-            <button className="absolute right-0 rounded-r-lg bg-slate-700 p-4 text-slate-100  hover:bg-slate-500">
+            <button className="  rounded-r-lg bg-slate-700 p-4 text-slate-100  hover:bg-slate-500">
               Search
             </button>
           </div>

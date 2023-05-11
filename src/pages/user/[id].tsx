@@ -13,7 +13,6 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
 
   useEffect(() => {
     verifyUser();
-    console.log(userReviews);
   }, [userObj]);
 
   const getReviewAssets = async () => {

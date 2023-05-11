@@ -43,7 +43,7 @@ const LandingPage: React.FC = () => {
     <section className="relative min-h-screen bg-slate-800">
       <div className="m-auto max-w-[1300px]">
         <Navbar />
-        <div className="mx-4 flex max-w-3xl flex-col pb-20 pt-2 md:mx-auto">
+        <div className="mx-4 flex flex-col pb-20 pt-2 md:mx-auto">
           <SearchBar
             setCurrentAlbum={setCurrentAlbum}
             setCurrentAlbumId={setCurrentAlbumId}
