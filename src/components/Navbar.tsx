@@ -115,7 +115,7 @@ const Navbar = () => {
             <li>
               <Link
                 href="/Login"
-                className="whitespace-nowrap rounded-lg bg-primary px-8 py-2 ring-orange-500  ring-offset-4 ring-offset-slate-900 duration-100 ease-in hover:bg-slate-900 hover:ring-2"
+                className=" hover:bg-slate-00 block whitespace-nowrap   rounded-lg border-2 border-primary p-3 pl-4 duration-100 ease-in"
               >
                 Log In
               </Link>
