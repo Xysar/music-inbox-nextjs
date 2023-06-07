@@ -67,6 +67,9 @@ const CreateReview: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (rating < 0) {
+      return;
+    }
     await verifyAlbum();
     await createReview();
     router.push(`/user/${user?.id}`);
@@ -103,7 +106,7 @@ const CreateReview: React.FC = () => {
                     alt="album picture"
                     width={200}
                     height={200}
-                    className="h-[300px] w-[300px] cursor-pointer"
+                    className="h-[300px] w-[300px] "
                   />
                 )}
               </div>

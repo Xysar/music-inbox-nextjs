@@ -11,10 +11,6 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
   const userObj = useUser();
   const { user } = userObj;
 
-  useEffect(() => {
-    verifyUser();
-  }, [userObj]);
-
   const getReviewAssets = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get-user/${userId}`,
@@ -44,27 +40,6 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
 
     const albumData = await Promise.all(promises);
     setAlbumsData(albumData);
-  };
-
-  const verifyUser = async () => {
-    if (!user) {
-      return;
-    }
-    const { fullName, id } = user;
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/create-user`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: fullName,
-          clerkId: id,
-        }),
-      }
-    );
-    const result = await response.json();
   };
 
   const handleDelete = async (index: number) => {
@@ -178,19 +153,10 @@ export async function getServerSideProps(context: any) {
   );
   const userInfo = await response.json();
 
-  const albumResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get-user-album-mbids/${userId}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const albumIds = await albumResponse.json();
+  const userReviews = userInfo.reviews;
 
   const promises = await Promise.all(
-    albumIds.map((albumId: string) => retrieveAlbumById(albumId))
+    userReviews.map((review: any) => retrieveAlbumById(review.mbid))
   );
 
   const albumDataArray = await Promise.all(promises);

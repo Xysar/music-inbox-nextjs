@@ -14,36 +14,11 @@ const LandingPage: React.FC = () => {
   const userObj = useUser();
   const { user } = userObj;
 
-  useEffect(() => {
-    verifyUser();
-  }, [userObj]);
-
-  const verifyUser = async () => {
-    if (!user) {
-      return;
-    }
-    const { fullName, id } = user;
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/create-user`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: fullName,
-          clerkId: id,
-        }),
-      }
-    );
-    const result = await response.json();
-  };
-
   return (
     <section className="relative min-h-screen bg-slate-800">
       <div className="m-auto max-w-[1300px]">
         <Navbar />
-        <div className="mx-4 flex flex-col pb-20 pt-2 md:mx-auto">
+        <div className="mx-4 flex flex-col pb-20 pt-2 xl:mx-auto">
           <SearchBar
             setCurrentAlbum={setCurrentAlbum}
             setCurrentAlbumId={setCurrentAlbumId}
@@ -55,6 +30,7 @@ const LandingPage: React.FC = () => {
             <AlbumCard
               currentAlbum={currentAlbum}
               currentAlbumId={currentAlbumId}
+              showLink={true}
             />
           )}
         </div>

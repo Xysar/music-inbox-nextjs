@@ -8,8 +8,8 @@ const Register = () => {
         path="/Register"
         routing="path"
         signInUrl="/Login"
-        afterSignUpUrl="/"
-        redirectUrl="/"
+        afterSignUpUrl="/VerifyUser"
+        redirectUrl="/VerifyUser"
       />
     </div>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-const AlbumCard = ({ currentAlbum, currentAlbumId }: any) => {
+const AlbumCard = ({ currentAlbum, currentAlbumId, showLink }: any) => {
   const [showTracklist, setShowTracklist] = useState<boolean>(false);
   const router = useRouter();
 
@@ -57,7 +57,7 @@ const AlbumCard = ({ currentAlbum, currentAlbumId }: any) => {
       </div>
 
       {currentAlbum && (
-        <div className="mt-10 flex gap-6 text-lg">
+        <div className="mt-10 flex flex-col gap-6 text-lg sm:flex-row">
           <div className="flex-shrink-0">
             <Image
               src={`${currentAlbum?.image[2]["#text"]}`}
@@ -107,7 +107,9 @@ const AlbumCard = ({ currentAlbum, currentAlbumId }: any) => {
               </div>
             </div>
             <button
-              className=" self-end  rounded-lg bg-primary px-8   py-2 text-white duration-150 ease-in-out  hover:scale-110"
+              className={`${
+                showLink ? "" : "hidden"
+              } self-end  rounded-lg bg-primary px-8   py-2 text-white duration-150 ease-in-out  hover:scale-110`}
               onClick={() => verifyAlbum()}
             >
               {"Go"}

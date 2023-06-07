@@ -17,7 +17,11 @@ const AlbumPage = ({ albumData, albumId, albumReviews }: any) => {
     <section className="relative min-h-screen bg-slate-800">
       <div className="m-auto max-w-[1300px]">
         <Navbar />
-        <AlbumCard currentAlbum={albumData} currentAlbumId={albumId} />
+        <AlbumCard
+          currentAlbum={albumData}
+          currentAlbumId={albumId}
+          showLink={false}
+        />
         {albumReviews.map((review: any, index: number) => (
           <div key={review.id} className="flex  bg-slate-500  text-white ">
             <div className="float-left inline-block flex-grow-0 bg-slate-900 p-8">
