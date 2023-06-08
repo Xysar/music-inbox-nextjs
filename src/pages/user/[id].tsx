@@ -70,7 +70,7 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
       </SignedOut>
       <div className=" m-auto max-w-[1300px]">
         <Navbar />
-        <div className="  m-auto w-[300px] justify-between  p-10">
+        <div className="m-auto w-[300px] justify-between  p-10">
           <div className="flex flex-col items-center gap-5 ">
             {user && (
               <Image
@@ -84,22 +84,22 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
             <p className="text-3xl text-white "> {user?.fullName}</p>
           </div>
         </div>
-        <div className="pb-4">
+        <div className="pb-4 ">
           {userReviews.map((review: any, index: number) => (
             <div
               key={review.id}
-              className="flex justify-between  border-b-2 border-slate-700  bg-slate-500 text-black"
+              className="mb-4 flex flex-col justify-between border-b-2 border-slate-700    text-black lg:flex-row"
             >
               {albumsData[index] && (
-                <div className="flex  w-[50%]">
+                <div className="  flex w-full flex-col items-center  lg:flex-row ">
                   <Image
                     src={albumsData[index]?.image[2]["#text"]}
                     width={200}
-                    className="h-[200px] w-[200px]"
+                    className="h-[300px] w-[300px]"
                     height={200}
                     alt="Album Cover"
                   />
-                  <div className="flex flex-col justify-center p-5">
+                  <div className="flex h-full w-full flex-col items-center  justify-center bg-slate-500  p-5 lg:items-start">
                     <h1 className="text-4xl font-bold">
                       {albumsData[index].name}
                     </h1>
@@ -107,29 +107,30 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
                   </div>
                 </div>
               )}
-              <div className="flex w-[50%] justify-between bg-slate-900 p-5">
-                <div className=" ">
-                  <p className="m-auto h-20 overflow-y-scroll text-white ">
+              <div className="flex h-[300px] flex-col gap-4 bg-slate-900 p-5 lg:w-[80%]">
+                <div className="flex items-center justify-between ">
+                  <StarRating
+                    rating={review.rating}
+                    handleClick={handleRatingClick}
+                  />
+
+                  <button
+                    onClick={() => handleDelete(index)}
+                    className=" flex h-10 w-10 items-center justify-center rounded-full text-white hover:bg-slate-800"
+                  >
+                    <Image
+                      src={"/trash-solid.svg"}
+                      width={20}
+                      height={20}
+                      alt="trash can image"
+                    ></Image>
+                  </button>
+                </div>
+                <div className="">
+                  <p className="m-auto h-[175px] overflow-y-scroll text-white ">
                     {review.content}
                   </p>
-                  <div className="">
-                    <StarRating
-                      rating={review.rating}
-                      handleClick={handleRatingClick}
-                    />
-                  </div>
                 </div>
-                <button
-                  onClick={() => handleDelete(index)}
-                  className=" flex h-10 w-10 items-center justify-center rounded-full text-white hover:bg-slate-800"
-                >
-                  <Image
-                    src={"/trash-solid.svg"}
-                    width={20}
-                    height={20}
-                    alt="trash can image"
-                  ></Image>
-                </button>
               </div>
             </div>
           ))}

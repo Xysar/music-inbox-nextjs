@@ -21,10 +21,10 @@ const Navbar = () => {
               alt="vinyl record"
               className="h-24 w-24  flex-1"
             />
-            <h1 className=" text-5xl">Music Inbox</h1>
+            <h1 className="text-3xl md:text-5xl">Music Inbox</h1>
           </div>
         </Link>
-        <ul className="hidden items-center gap-6 text-lg sm:flex ">
+        <ul className="hidden items-center gap-6 text-lg md:flex ">
           <SignedIn>
             <li>
               <Link
@@ -72,7 +72,7 @@ const Navbar = () => {
             </li>
           </SignedOut>
         </ul>
-        <div className="relative sm:hidden">
+        <div className="relative md:hidden">
           <button
             onClick={() => {
               setToggle((prev) => !prev);
@@ -89,7 +89,7 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      <div className={`${toggle ? "" : "hidden"}  bg-slate-900 p-4 sm:hidden`}>
+      <div className={`${toggle ? "" : "hidden"}  bg-slate-900 p-4 md:hidden`}>
         <ul className="flex  flex-col gap-2 p-2  text-2xl text-slate-200">
           <SignedIn>
             <div className="flex justify-between pb-4">
