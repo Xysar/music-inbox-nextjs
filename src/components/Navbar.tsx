@@ -58,6 +58,7 @@ const Navbar = () => {
                     userButtonAvatarBox: "w-16 h-16",
                   },
                 }}
+                afterSignOutUrl="/"
               />
             </li>
           </SignedIn>
@@ -100,6 +101,7 @@ const Navbar = () => {
                       userButtonAvatarBox: "w-20 h-20",
                     },
                   }}
+                  afterSignOutUrl="/"
                 />
               </li>
               <li>
