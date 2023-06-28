@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 const TopAlbums = ({ albums }: any) => {
-  const albumsToDisplay = albums.slice(0, 5);
+  const albumsToDisplay = albums?.slice(0, 5);
   const router = useRouter();
 
   return (

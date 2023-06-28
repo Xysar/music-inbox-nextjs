@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 const RandomUsers = ({ users }: any) => {
-  const usersToDisplay = users.slice(0, 5);
+  const usersToDisplay = users?.slice(0, 5);
   const router = useRouter();
 
   return (
