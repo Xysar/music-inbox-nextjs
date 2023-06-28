@@ -4,7 +4,11 @@ import { useRouter } from "next/router";
 
 const TopAlbums = ({ albums }: any) => {
   const albumsToDisplay = () => {
-    return albums?.slice(0, 5);
+    if (albums) {
+      return albums?.slice(0, 5);
+    } else {
+      return [];
+    }
   };
   const router = useRouter();
 
