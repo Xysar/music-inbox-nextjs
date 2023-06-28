@@ -7,20 +7,13 @@ const TopAlbums = ({ albums }: any) => {
     console.log(albums);
   }, []);
 
-  const albumsToDisplay = () => {
-    if (albums) {
-      return albums?.slice(0, 5);
-    } else {
-      return [];
-    }
-  };
   const router = useRouter();
 
   return (
     <div className="mx-4 flex-1 rounded-lg bg-slate-800 p-4 text-white">
       <h2 className=" pb-4  text-3xl">Trending Albums</h2>
       <ul className="flex flex-col flex-wrap items-center justify-evenly gap-10   md:flex-row ">
-        {albumsToDisplay()?.map((album: any, index: any) => (
+        {albums?.map((album: any, index: any) => (
           <li
             key={index}
             onClick={() => {
