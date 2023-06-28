@@ -3,9 +3,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 const TopAlbums = ({ albums }: any) => {
-  useEffect(() => {
-    console.log(albums);
-  }, []);
+  const albumsToDisplay = () => {
+    return albums?.slice(0, 5);
+  };
 
   const router = useRouter();
 
@@ -13,7 +13,7 @@ const TopAlbums = ({ albums }: any) => {
     <div className="mx-4 flex-1 rounded-lg bg-slate-800 p-4 text-white">
       <h2 className=" pb-4  text-3xl">Trending Albums</h2>
       <ul className="flex flex-col flex-wrap items-center justify-evenly gap-10   md:flex-row ">
-        {albums?.map((album: any, index: any) => (
+        {albumsToDisplay()?.map((album: any, index: any) => (
           <li
             key={index}
             onClick={() => {

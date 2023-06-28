@@ -43,8 +43,8 @@ const LandingPage = ({ albums, users }: any) => {
           )}
         </div>
         <div className=" m-auto flex flex-col justify-between gap-10 pb-20 md:flex-row">
-          <TopAlbums albums={[]} />
-          <RandomUsers users={[]} />
+          <TopAlbums albums={albums} />
+          <RandomUsers users={users} />
         </div>
       </div>
       <Footer />
