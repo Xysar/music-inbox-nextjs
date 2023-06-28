@@ -3,6 +3,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 const TopAlbums = ({ albums }: any) => {
+  useEffect(() => {
+    console.log(albums);
+  }, []);
+
   const albumsToDisplay = () => {
     if (albums) {
       return albums?.slice(0, 5);
