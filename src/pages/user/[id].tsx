@@ -11,6 +11,10 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
   const userObj = useUser();
   const { user } = userObj;
 
+  const correctUser = () => {
+    return userId === user?.id;
+  };
+
   const getReviewAssets = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get-user/${userId}`,
@@ -44,7 +48,6 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
 
   const handleDelete = async (index: number) => {
     const idTodelete = userReviews[index].id;
-    console.log(idTodelete);
     await deleteReview(idTodelete);
     await getReviewAssets();
   };
@@ -65,9 +68,6 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
 
   return (
     <section className=" relative min-h-screen bg-slate-900">
-      <SignedOut>
-        <RedirectToSignIn />
-      </SignedOut>
       <div className=" m-auto max-w-[1300px]">
         <Navbar />
         <div className="m-auto w-[300px] justify-between  p-10">
@@ -78,13 +78,18 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
                 alt=""
                 width={200}
                 height={200}
-                className="h-[200px] w-[200px] rounded-full object-cover"
+                className="h-[200px] w-[200px]  rounded-full object-cover"
               />
             )}
             <p className="text-3xl text-white "> {userInfo?.username}</p>
           </div>
         </div>
         <div className="pb-4 ">
+          {!userReviews[0] && (
+            <p className="text-center text-xl text-white ">
+              No Reviews Made Yet
+            </p>
+          )}
           {userReviews.map((review: any, index: number) => (
             <div
               key={review.id}
@@ -114,17 +119,19 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
                     handleClick={handleRatingClick}
                   />
 
-                  <button
-                    onClick={() => handleDelete(index)}
-                    className=" flex h-10 w-10 items-center justify-center rounded-full text-white hover:bg-slate-800"
-                  >
-                    <Image
-                      src={"/trash-solid.svg"}
-                      width={20}
-                      height={20}
-                      alt="trash can image"
-                    ></Image>
-                  </button>
+                  {correctUser() && (
+                    <button
+                      onClick={() => handleDelete(index)}
+                      className=" flex h-10 w-10 items-center justify-center rounded-full text-white hover:bg-slate-800"
+                    >
+                      <Image
+                        src={"/trash-solid.svg"}
+                        width={20}
+                        height={20}
+                        alt="trash can image"
+                      ></Image>
+                    </button>
+                  )}
                 </div>
                 <div className="">
                   <p className="m-auto h-[175px] overflow-y-scroll text-white ">
