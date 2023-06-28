@@ -16,6 +16,9 @@ const LandingPage = ({ albums, users }: any) => {
 
   const userObj = useUser();
   const { user } = userObj;
+  useEffect(() => {
+    console.log(albums);
+  }, []);
 
   return (
     <section className="relative min-h-screen bg-slate-900">
