@@ -1,5 +1,6 @@
 import LandingPage from "./LandingPage";
 import { ClerkProvider } from "@clerk/nextjs";
+import { GetServerSideProps } from "next";
 
 export default function Home({ albums, users }: any) {
   return <LandingPage albums={albums} users={users} />;
