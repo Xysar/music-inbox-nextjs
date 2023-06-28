@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -19,6 +19,7 @@ const AlbumCard = ({ currentAlbum, currentAlbumId, showLink }: any) => {
           title: currentAlbum?.name,
           artist: currentAlbum?.artist,
           mbid: currentAlbumId,
+          imageId: currentAlbum?.image[3]["#text"],
         }),
       }
     );
@@ -50,7 +51,7 @@ const AlbumCard = ({ currentAlbum, currentAlbumId, showLink }: any) => {
   };
 
   return (
-    <div className="z-[5] my-10 w-full rounded-lg bg-slate-700 p-4 text-slate-100 drop-shadow-lg duration-150 ease-in-out  ">
+    <div className="z-[5] my-10 w-full rounded-lg bg-slate-800 p-4 text-slate-100 drop-shadow-lg duration-150 ease-in-out  ">
       <div className="flex justify-between ">
         <h1 className="text-3xl">{currentAlbum?.name}</h1>
         <h2 className="text-2xl">{currentAlbum?.artist}</h2>
@@ -60,10 +61,10 @@ const AlbumCard = ({ currentAlbum, currentAlbumId, showLink }: any) => {
         <div className="mt-10 flex flex-col gap-6 text-lg sm:flex-row">
           <div className="flex-shrink-0">
             <Image
-              src={`${currentAlbum?.image[2]["#text"]}`}
+              src={`${currentAlbum?.image[3]["#text"]}`}
               alt="album picture"
-              width={200}
-              height={200}
+              width={300}
+              height={300}
               className="aspect-square w-[300px] "
             />
           </div>

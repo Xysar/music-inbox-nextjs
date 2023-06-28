@@ -43,6 +43,7 @@ const CreateReview: React.FC = () => {
           title: currentAlbum.name,
           artist: currentAlbum.artist,
           mbid: currentAlbumId,
+          imageId: currentAlbum?.image[3]["#text"],
         }),
       }
     );
@@ -76,7 +77,7 @@ const CreateReview: React.FC = () => {
   };
 
   return (
-    <section className=" min-h-screen bg-slate-800">
+    <section className=" min-h-screen bg-slate-900">
       <div className="m-auto max-w-[1300px]">
         <Navbar />
         <div className="m-10">

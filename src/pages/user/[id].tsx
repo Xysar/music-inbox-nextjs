@@ -64,7 +64,7 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
   const handleRatingClick = (index: number) => {};
 
   return (
-    <section className=" relative min-h-screen bg-slate-800">
+    <section className=" relative min-h-screen bg-slate-900">
       <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
@@ -74,14 +74,14 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
           <div className="flex flex-col items-center gap-5 ">
             {user && (
               <Image
-                src={`${user?.profileImageUrl}`}
+                src={`${userInfo?.imageId}`}
                 alt=""
                 width={200}
                 height={200}
                 className="h-[200px] w-[200px] rounded-full"
               />
             )}
-            <p className="text-3xl text-white "> {user?.fullName}</p>
+            <p className="text-3xl text-white "> {userInfo?.username}</p>
           </div>
         </div>
         <div className="pb-4 ">

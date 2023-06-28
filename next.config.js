@@ -31,6 +31,6 @@ module.exports = {
   },
   reactStrictMode: true,
   images: {
-    domains: ["lastfm.freetls.fastly.net", "images.clerk.dev"],
+    domains: ["lastfm.freetls.fastly.net", "images.clerk.dev", "img.clerk.com"],
   },
 };

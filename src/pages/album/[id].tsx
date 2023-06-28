@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { GetServerSideProps } from "next";
 import { retrieveAlbumById } from "@/utils/lastfm";
 import StarRating from "@/components/StarRating";
+import Image from "next/image";
 
 const AlbumPage = ({ albumData, albumId, albumReviews }: any) => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const AlbumPage = ({ albumData, albumId, albumReviews }: any) => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-slate-800">
+    <section className="relative min-h-screen bg-slate-900">
       <div className="m-auto max-w-[1300px]">
         <Navbar />
         <AlbumCard
@@ -23,8 +24,15 @@ const AlbumPage = ({ albumData, albumId, albumReviews }: any) => {
           showLink={false}
         />
         {albumReviews.map((review: any, index: number) => (
-          <div key={review.id} className="flex  bg-slate-500  text-white ">
-            <div className="float-left inline-block flex-grow-0 bg-slate-900 p-8">
+          <div key={review.id} className="flex  bg-slate-800  text-white ">
+            <div className="float-left inline-block flex-grow-0 bg-slate-700 p-8">
+              <Image
+                src={`${review?.imageId}`}
+                alt=""
+                width={200}
+                height={200}
+                className="h-[200px] w-[200px] rounded-full"
+              />
               <h1 className="text-3xl">{review.userName}</h1>
             </div>
             <div className="flex flex-1 justify-between p-4">

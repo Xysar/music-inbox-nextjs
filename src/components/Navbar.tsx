@@ -10,7 +10,7 @@ const Navbar = () => {
   const { userId } = useAuth();
 
   return (
-    <nav className="">
+    <nav className="border-b border-b-white">
       <div className="flex w-full items-center justify-between px-10 py-6 text-slate-200">
         <Link href={"/"}>
           <div className="flex cursor-pointer items-center gap-5">
@@ -29,7 +29,7 @@ const Navbar = () => {
             <li>
               <Link
                 href={`/user/${userId}`}
-                className="rounded-lg px-8 py-2 duration-100 ease-in hover:bg-slate-900 hover:text-white"
+                className="rounded-lg px-8 py-2 duration-100 ease-in hover:bg-slate-800 hover:text-white"
               >
                 Profile
               </Link>
@@ -38,7 +38,7 @@ const Navbar = () => {
           <li>
             <Link
               href={"/"}
-              className="rounded-lg px-8 py-2 duration-100 ease-in hover:bg-slate-900 hover:text-white"
+              className="rounded-lg px-8 py-2 duration-100 ease-in hover:bg-slate-800 hover:text-white"
             >
               Search
             </Link>

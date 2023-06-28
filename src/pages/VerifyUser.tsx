@@ -18,7 +18,8 @@ const VerifyUser = () => {
     if (!user) {
       return;
     }
-    const { fullName, id } = user;
+    const { fullName, id, imageUrl } = user;
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/create-user`,
       {
@@ -28,11 +29,11 @@ const VerifyUser = () => {
         },
         body: JSON.stringify({
           username: fullName,
+          imageId: imageUrl,
           clerkId: id,
         }),
       }
     );
-    const result = await response.json();
   };
 
   return <div></div>;
