@@ -8,7 +8,7 @@ const Login = () => {
         path="/Login"
         routing="path"
         signUpUrl="/Register"
-        afterSignInUrl="/VerifyUser"
+        afterSignInUrl="/UpdateUser"
       />
     </div>
   );

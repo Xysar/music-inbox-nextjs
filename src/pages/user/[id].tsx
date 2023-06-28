@@ -78,7 +78,7 @@ const UserPage = ({ userId, userInfo, albumDataArray }: any) => {
                 alt=""
                 width={200}
                 height={200}
-                className="h-[200px] w-[200px] rounded-full"
+                className="h-[200px] w-[200px] rounded-full object-cover"
               />
             )}
             <p className="text-3xl text-white "> {userInfo?.username}</p>

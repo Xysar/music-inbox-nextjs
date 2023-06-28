@@ -79,20 +79,20 @@ const AlbumCard = ({ currentAlbum, currentAlbumId, showLink }: any) => {
             ></p>
             <div
               onClick={() => setShowTracklist((prev) => !prev)}
-              className="relative box-border w-full cursor-pointer  border-gray-600 bg-black p-2 hover:bg-slate-900 "
+              className="relative mb-3 box-border w-full cursor-pointer  border-gray-600 bg-black p-2 hover:bg-slate-900 "
             >
               {returnTracklist()}
               <div
                 className={`${
                   showTracklist ? "block" : "hidden"
-                } absolute left-0 top-0 h-44 w-[100%] overflow-scroll `}
+                } absolute left-0 top-0 h-44 w-[100%] overflow-scroll  `}
               >
                 {currentAlbum?.tracks?.track.map(
                   (curTrack: any, index: number) => {
                     return (
                       <div
                         key={index}
-                        className="flex w-full justify-between  border-gray-600 bg-black p-2 hover:bg-slate-900 "
+                        className=" flex w-full justify-between  border-gray-600 bg-black p-2 hover:bg-slate-900 "
                       >
                         <div className="flex gap-2">
                           <p>{index + 1}.</p>

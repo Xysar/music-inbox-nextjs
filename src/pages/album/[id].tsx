@@ -23,6 +23,9 @@ const AlbumPage = ({ albumData, albumId, albumReviews }: any) => {
           currentAlbumId={albumId}
           showLink={false}
         />
+        {!albumReviews[0] && (
+          <p className="text-center text-3xl text-white">No Reviews Made Yet</p>
+        )}
         {albumReviews.map((review: any, index: number) => (
           <div key={review.id} className="flex  bg-slate-800  text-white ">
             <div className="float-left inline-block flex-grow-0 bg-slate-700 p-8">
@@ -31,7 +34,7 @@ const AlbumPage = ({ albumData, albumId, albumReviews }: any) => {
                 alt=""
                 width={200}
                 height={200}
-                className="h-[200px] w-[200px] rounded-full"
+                className="h-[200px] w-[200px] rounded-full object-cover"
               />
               <h1 className="text-3xl">{review.userName}</h1>
             </div>

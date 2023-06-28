@@ -25,12 +25,14 @@ const LandingPage = ({ albums, users }: any) => {
     <section className="relative min-h-screen bg-slate-900">
       <div className="m-auto max-w-[1300px]">
         <Navbar />
-        <div className="mx-4 flex flex-col pb-10 pt-4 xl:mx-auto">
-          <SearchBar
-            setCurrentAlbum={setCurrentAlbum}
-            setCurrentAlbumId={setCurrentAlbumId}
-            setLoading={setLoading}
-          />
+        <div className="mx-4 flex flex-col pb-10 pt-8 ">
+          <div className="m-auto w-full max-w-[700px]">
+            <SearchBar
+              setCurrentAlbum={setCurrentAlbum}
+              setCurrentAlbumId={setCurrentAlbumId}
+              setLoading={setLoading}
+            />
+          </div>
           {loading ? (
             <div className="text-3xl text-white">Loading...</div>
           ) : (
