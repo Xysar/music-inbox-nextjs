@@ -29,23 +29,22 @@ const AlbumPage = ({ albumData, albumId, albumReviews }: any) => {
         {albumReviews.map((review: any, index: number) => (
           <div
             key={review.id}
-            className="flex  overflow-hidden rounded-lg   bg-slate-800 text-white "
+            className="flex  overflow-hidden rounded-lg   bg-slate-950 text-white "
           >
-            <div className="float-left inline-block flex-grow-0 bg-slate-700 p-8">
+            <div className="float-left inline-block flex-grow-0 p-8">
               <Image
                 src={`${review?.imageId}`}
                 alt=""
                 width={200}
                 height={200}
-                className="h-[200px] w-[200px] rounded-full object-cover"
+                className="mr-5 inline-block h-[50px] w-[50px] rounded-full object-cover"
               />
-              <h1 className="text-3xl">{review.userName}</h1>
+              <h1 className="inline-block text-2xl ">{review.userName}</h1>
             </div>
             <div className="flex flex-1 justify-between p-4">
-              <p className="text-lg">{review.content}</p>
-
               <StarRating rating={review.rating} handleClick={() => {}} />
             </div>
+            <p className="text-lg">{review.content}</p>
           </div>
         ))}
       </div>

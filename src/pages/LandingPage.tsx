@@ -17,10 +17,6 @@ const LandingPage = ({ albums, users }: any) => {
   const userObj = useUser();
   const { user } = userObj;
 
-  useEffect(() => {
-    console.log(albums);
-  }, []);
-
   return (
     <section className="relative min-h-screen bg-slate-900">
       <div className="m-auto max-w-[1300px]">
